@@ -63,15 +63,13 @@ const generateKPIData = (range) => {
     const date = new Date();
     date.setDate(date.getDate() - i);
     
-    // Calculate base totals from current products
     const totalStock = products.reduce((sum, p) => sum + p.stock, 0);
     const totalDemand = products.reduce((sum, p) => sum + p.demand, 0);
     
-    // Create realistic variations over time
     const dayOffset = i / days;
-    const stockTrend = Math.sin(dayOffset * Math.PI * 2) * 0.05; // Seasonal variation
-    const demandTrend = Math.cos(dayOffset * Math.PI * 2) * 0.08; // Demand cycles
-    const randomVariation = (Math.random() - 0.5) * 0.03; // Small random changes
+    const stockTrend = Math.sin(dayOffset * Math.PI * 2) * 0.05; 
+    const demandTrend = Math.cos(dayOffset * Math.PI * 2) * 0.08;
+    const randomVariation = (Math.random() - 0.5) * 0.03;
     
     kpiData.push({
       date: date.toISOString().split('T')[0],
@@ -162,8 +160,6 @@ const resolvers = {
     transferStock: (parent, args) => {
       const productIndex = products.findIndex(p => p.id === args.id);
       if (productIndex !== -1) {
-        // For demo purposes, we'll just update the warehouse
-        // In a real system, this would involve more complex logic
         products[productIndex].warehouse = args.to;
         return products[productIndex];
       }
