@@ -1,9 +1,8 @@
-
 const TopBar = ({ selectedRange, onRangeChange }) => {
   const ranges = ['7d', '14d', '30d'];
 
   return (
-    <div className="px-6 py-4 bg-white border-b border-gray-200 shadow-sm">
+    <div className="sticky top-0 z-50 px-6 py-4 bg-white border-b border-gray-200 shadow-sm">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-500">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ApolloProvider, useQuery } from '@apollo/client';
 import client from './apollo/client';
 import { GET_PRODUCTS, GET_WAREHOUSES, GET_KPIS } from './graphql/queries';
@@ -9,6 +9,7 @@ import StockChart from './components/StockChart';
 import FiltersRow from './components/FiltersRow';
 import ProductsTable from './components/ProductsTable';
 import ProductDrawer from './components/ProductDrawer';
+import Footer from './components/Footer';
 
 const Dashboard = () => {
   const [selectedRange, setSelectedRange] = useState('7d');
@@ -72,10 +73,10 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen mb-4 bg-gray-50">
       <TopBar selectedRange={selectedRange} onRangeChange={setSelectedRange} />
 
-      <div className="px-6 py-8 mx-auto max-w-7xl">
+      <div className="px-6 py-8 mx-2 lg:mx-20 xlg:mx-32 md:mx-4">
         <FiltersRow
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
@@ -107,6 +108,7 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
       <Dashboard />
+      <Footer />
     </ApolloProvider>
   );
 };
