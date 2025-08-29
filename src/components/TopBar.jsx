@@ -1,20 +1,19 @@
-import React from 'react';
 
 const TopBar = ({ selectedRange, onRangeChange }) => {
   const ranges = ['7d', '14d', '30d'];
 
   return (
-    <div className="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
+    <div className="px-6 py-4 bg-white border-b border-gray-200 shadow-sm">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">S</span>
+          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary-500">
+            <span className="text-sm font-bold text-white">S</span>
           </div>
           <h1 className="text-2xl font-bold text-gray-900">SupplySight</h1>
         </div>
         
         <div className="flex items-center space-x-2">
-          <span className="text-sm text-gray-600 mr-2">Date Range:</span>
+          <span className="mr-2 text-sm text-gray-600">Date Range:</span>
           {ranges.map((range) => (
             <button
               key={range}

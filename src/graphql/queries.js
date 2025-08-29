@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_PRODUCTS = gql`
-  query GetProducts($search: String, $status: String, $warehouse: String) {
-    products(search: $search, status: $status, warehouse: $warehouse) {
+  query GetProducts($search: String, $status: String, $warehouse: String, $range: String) {
+    products(search: $search, status: $status, warehouse: $warehouse, range: $range) {
       id
       name
       sku
@@ -14,8 +14,8 @@ export const GET_PRODUCTS = gql`
 `;
 
 export const GET_WAREHOUSES = gql`
-  query GetWarehouses {
-    warehouses {
+  query GetWarehouses($range: String) {
+    warehouses(range: $range) {
       code
       name
       city
@@ -25,8 +25,8 @@ export const GET_WAREHOUSES = gql`
 `;
 
 export const GET_KPIS = gql`
-  query GetKPIs($range: String!) {
-    kpis(range: $range) {
+  query GetKPIs($range: String!, $warehouse: String) {
+    kpis(range: $range, warehouse: $warehouse) {
       date
       stock
       demand

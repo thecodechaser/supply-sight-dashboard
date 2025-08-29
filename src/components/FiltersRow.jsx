@@ -11,16 +11,26 @@ const FiltersRow = ({
   warehouses 
 }) => {
   return (
-    <div className="card p-4 mb-6">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="p-10 mb-6 card">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+        <div className="text-sm text-gray-500">
+          {searchTerm && `Search: "${searchTerm}" • `}
+          {selectedWarehouse && `Warehouse: ${selectedWarehouse} • `}
+          {selectedStatus && `Status: ${selectedStatus} • `}
+          <span className="text-gray-400">Use filters to refine results</span>
+        </div>
+      </div>
+      
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Search className="h-5 w-5 text-gray-400" />
+          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <Search className="w-5 h-5 text-gray-400" />
           </div>
           <input
             type="text"
             placeholder="Search by name, SKU, or ID..."
-            className="input-field pl-10"
+            className="pl-10 input-field"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />

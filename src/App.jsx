@@ -18,22 +18,32 @@ const Dashboard = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const { data: productsData, loading: productsLoading } = useQuery(GET_PRODUCTS, {
-    variables: {
-      search: searchTerm || null,
-      status: selectedStatus !== 'All' ? selectedStatus : null,
-      warehouse: selectedWarehouse !== 'All' ? selectedWarehouse : null,
-    },
-    errorPolicy: 'all'
-  });
+  const { data: productsData, loading: productsLoading } = useQuery(
+    GET_PRODUCTS,
+    {
+      variables: {
+        search: searchTerm || null,
+        status: selectedStatus !== 'All' ? selectedStatus : null,
+        warehouse: selectedWarehouse !== 'All' ? selectedWarehouse : null,
+        range: selectedRange,
+      },
+      errorPolicy: 'all',
+    }
+  );
 
   const { data: warehousesData } = useQuery(GET_WAREHOUSES, {
-    errorPolicy: 'all'
+    variables: {
+      range: selectedRange,
+    },
+    errorPolicy: 'all',
   });
 
   const { data: kpiData } = useQuery(GET_KPIS, {
-    variables: { range: selectedRange },
-    errorPolicy: 'all'
+    variables: {
+      range: selectedRange,
+      warehouse: selectedWarehouse !== 'All' ? selectedWarehouse : null,
+    },
+    errorPolicy: 'all',
   });
 
   const products = productsData?.products || [];
@@ -52,9 +62,9 @@ const Dashboard = () => {
 
   if (productsLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-500 mx-auto"></div>
+          <div className="w-32 h-32 mx-auto border-b-2 rounded-full animate-spin border-primary-500"></div>
           <p className="mt-4 text-lg text-gray-600">Loading dashboard...</p>
         </div>
       </div>
@@ -64,12 +74,8 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <TopBar selectedRange={selectedRange} onRangeChange={setSelectedRange} />
-      
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <KPICards products={products} />
-        
-        {kpis.length > 0 && <StockChart kpiData={kpis} />}
-        
+
+      <div className="px-6 py-8 mx-auto max-w-7xl">
         <FiltersRow
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
@@ -79,7 +85,11 @@ const Dashboard = () => {
           setSelectedStatus={setSelectedStatus}
           warehouses={warehouses}
         />
-        
+
+        <KPICards products={products} />
+
+        {kpis.length > 0 && <StockChart kpiData={kpis} />}
+
         <ProductsTable products={products} onRowClick={handleProductClick} />
       </div>
 
