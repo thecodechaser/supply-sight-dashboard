@@ -5,7 +5,7 @@
 - Kept frontend and backend separate (React app + Node GraphQL server) for clarity and flexibility.
 - Designed UI with clear sections: filters, KPIs, chart, table, so users can explore data easily.
 
-##3 Trade-offs
+### Trade-offs
 - Separate frontend/backend means two deployments, a bit more setup vs one monolithic app.
 - Warehouse data is static for now (doesn’t change with date range) → simpler, but maybe less realistic.
 - Chart shows trends by date range, table shows current snapshot → easier to build but might confuse some users.
